@@ -1,2 +1,2 @@
 # AniLibria.UW
-AniLibria.UW port of original windows Anilibria app on net9
+AniLibria.UW port of original application [Anilibria](https://github.com/anilibria/anilibria-win) on net9.

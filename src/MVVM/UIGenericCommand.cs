@@ -11,11 +11,11 @@ namespace Anilibria.MVVM {
 
 		private readonly WeakAction<T> m_CommandAction;
 
-		private readonly WeakFunc<T , bool> m_CanExecute;
+		private readonly WeakFunc<T , bool>? m_CanExecute;
 
-		public event EventHandler CanExecuteChanged;
+		public event EventHandler? CanExecuteChanged;
 
-		public UIGenericCommand ( Action<T> commandAction , Func<T , bool> canExecute = null ) {
+		public UIGenericCommand ( Action<T> commandAction , Func<T , bool>? canExecute = null ) {
 			if ( commandAction == null ) throw new ArgumentNullException ( nameof ( commandAction ) );
 
 			m_CommandAction = new WeakAction<T> ( commandAction );
@@ -25,20 +25,21 @@ namespace Anilibria.MVVM {
 
 		public void RaiseCanExecuteChanged () => CanExecuteChanged?.Invoke ( this , EventArgs.Empty );
 
-		public bool CanExecute ( object parameter ) {
+		public bool CanExecute ( object? parameter ) {
 			if ( m_CanExecute == null ) return true;
 
-			if ( m_CanExecute.IsStatic || m_CanExecute.IsAlive ) {
-				if ( parameter == null && typeof ( T ).GetTypeInfo ().IsValueType ) return m_CanExecute.Execute ( default ( T ) );
+            if ( m_CanExecute.IsStatic || m_CanExecute.IsAlive ) {
+                if ( parameter == null && typeof ( T ).GetTypeInfo ().IsValueType ) return m_CanExecute.Execute ( default );
 				if ( parameter == null || parameter is T ) return ( m_CanExecute.Execute ( (T) parameter ) );
 			}
 
 			return false;
 		}
 
-		public virtual void Execute ( object parameter ) {
+		public virtual void Execute ( object? parameter ) {
 			var isCanExecute = CanExecute ( parameter ) && m_CommandAction != null && ( m_CommandAction.IsStatic || m_CommandAction.IsAlive );
 			if ( !isCanExecute ) return;
+			if ( m_CommandAction == null ) return;
 
 			if ( parameter == null ) {
 				if ( typeof ( T ).GetTypeInfo ().IsValueType ) {

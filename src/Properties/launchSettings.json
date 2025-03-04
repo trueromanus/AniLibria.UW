@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "AniLibria.UW": {
+      "commandName": "MsixPackage"
+    }
+  }
+}

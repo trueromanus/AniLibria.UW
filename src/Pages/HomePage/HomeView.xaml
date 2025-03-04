@@ -1,0 +1,320 @@
+﻿<Page
+	x:Class="Anilibria.HomeView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:player="using:Anilibria.Pages.OnlinePlayer"
+	xmlns:releases="using:Anilibria.Pages.Releases"
+	xmlns:authorize="using:Anilibria.Pages.AuthorizePage"
+	xmlns:youtube="using:Anilibria.Pages.Youtube"
+	xmlns:about="using:Anilibria.Pages.AboutPage"
+	xmlns:donate="using:Anilibria.Pages.DonatePage"
+	xmlns:viewmodel="Anilibria.Pages.HomePage"
+	xmlns:controls="using:Anilibria.Controls"
+	xmlns:converters="using:Anilibria.Converters"
+	xmlns:downloadmanager="using:Anilibria.Pages.DownloadManagerPage"
+	xmlns:cinemahall="using:Anilibria.Pages.CinemaHall"
+	xmlns:protocolpage="using:Anilibria.Pages.ProtocolsPages"
+	xmlns:maintenancepage="using:Anilibria.Pages.MaintenancePage"
+	mc:Ignorable="d"
+	d:DataContext="{d:DesignInstance viewmodel:HomeViewModel}"
+	Loaded="Page_Loaded">
+
+	<Page.Resources>
+		<Storyboard x:Name="ShowMessage">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="InformationMessage">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="-10"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="InformationMessage">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="5"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="InformationMessage">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0" />
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value=".99" />
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Name="HideMessage">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="InformationMessage">
+				<EasingDoubleKeyFrame KeyTime="0" Value="-10"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="InformationMessage">
+				<EasingDoubleKeyFrame KeyTime="0" Value="5"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="InformationMessage">
+				<EasingDoubleKeyFrame KeyTime="0" Value=".99" />
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</Page.Resources>
+	
+	<Grid>
+		<SplitView
+			x:Name="Sidebar"
+			DisplayMode="Overlay"
+			OpenPaneLength="260">
+			<SplitView.Pane>
+				<RelativePanel
+					converters:BackgroundThemeConverter.AnilibriaSidebar="Origin">
+					<Grid
+						x:Name="UserInfo"
+						RelativePanel.AlignTopWithPanel="True"
+						RelativePanel.AlignRightWithPanel="True"
+						RelativePanel.AlignLeftWithPanel="True"
+						Visibility="{Binding IsAuthorized}"
+						Margin="2 4 2 4"
+						HorizontalAlignment="Stretch">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Ellipse
+							Width="40"
+							Height="40"
+							Grid.Column="0">
+							<Ellipse.Fill>
+								<ImageBrush
+									ImageSource="{Binding UserModel.ImageUrl}"
+									Stretch="Uniform"
+								/>
+							</Ellipse.Fill>
+						</Ellipse>
+						<TextBlock
+							Grid.Column="1"
+							Margin="8 0 0 0"
+							TextAlignment="Center"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Text="{Binding UserModel.Login}"
+							TextTrimming="CharacterEllipsis"
+							TextWrapping="Wrap"
+							MaxLines="2"
+							Foreground="White"
+						/>
+						<controls:PointingGridControl
+							Grid.Column="2"
+							Tapped="Grid_Tapped"
+							Width="40"
+							Height="40"
+							ToolTipService.ToolTip="Выйти из текущего аккаунта">
+							<controls:LogoutIcon
+								IconWidth="30"
+								IconHeight="30"
+								IconColor="White"
+							/>
+						</controls:PointingGridControl>
+					</Grid>
+					<ListView
+						RelativePanel.Below="UserInfo"
+						RelativePanel.AlignRightWithPanel="True"
+						RelativePanel.AlignLeftWithPanel="True"
+						HorizontalAlignment="Stretch"
+						ItemsSource="{Binding Items}"
+						converters:BackgroundThemeConverter.AnilibriaSidebarList="Origin"
+						SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+									<controls:HumburgerIcon
+										IconWidth="28"
+										IconHeight="28"
+										IconColor="White"
+										Visibility="{Binding IsReleasePage}"
+									/>
+									<controls:VideoPlayerIcon
+										IconWidth="28"
+										IconHeight="28"
+										IconColor="White"
+										Visibility="{Binding IsOnlinePlayer}"
+									/>
+									<controls:YoutubeIcon
+										IconWidth="28"
+										IconHeight="28"
+										IconColor="White"
+										Visibility="{Binding IsYoutubePage}"
+									/>
+									<controls:DonateIcon
+										IconWidth="28"
+										IconHeight="28"
+										IconColor="White"
+										Visibility="{Binding IsDonatePage}"
+									/>
+									<controls:UserIcon
+										IconWidth="28"
+										IconHeight="28"
+										IconColor="White"
+										Visibility="{Binding IsSigninPage}"
+									/>
+									<controls:DownloadIcon
+										IconWidth="28"
+										IconHeight="28"
+										IconColor="White"
+										Visibility="{Binding IsDownloadManagerPage}"
+									/>
+									<controls:PopcornIcon
+										IconWidth="24"
+										IconHeight="24"
+										IconColor="White"
+										Visibility="{Binding IsCinemaHallPage}"
+									/>
+									<controls:MaintenanceIcon
+										IconWidth="24"
+										IconHeight="24"
+										IconColor="White"
+										Visibility="{Binding IsMaintenancePage}"
+									/>
+									<TextBlock
+										Text="{Binding Name}"
+										VerticalAlignment="Center"
+										Margin="10 0 0 0"
+										Foreground="White"
+									/>
+								</StackPanel>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<Grid
+						x:Name="PrivacyPolicySection"
+						RelativePanel.Above="ProgramVersionSection"
+						RelativePanel.AlignRightWithPanel="True"
+						RelativePanel.AlignLeftWithPanel="True"
+						Margin="0 0 0 20"
+						Tapped="OpenPrivacyPolicy"
+						PointerEntered="PrivacyPolicySection_PointerEntered"
+						PointerExited="PrivacyPolicySection_PointerExited">
+						<TextBlock
+							TextAlignment="Center"
+							FontSize="16"
+							converters:BackgroundThemeConverter.TextMapper="TextBlockMenuOption">
+							<Underline>
+								<Run>Политика конфиденциальности</Run>
+							</Underline>
+						</TextBlock>
+					</Grid>
+					<Grid
+						x:Name="ProgramVersionSection"
+						RelativePanel.AlignBottomWithPanel="True"
+						RelativePanel.AlignRightWithPanel="True"
+						RelativePanel.AlignLeftWithPanel="True"
+						Margin="8 0 0 4"
+						Tapped="StackPanel_Tapped">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						
+						<controls:DefaultAnilibriaIcon
+							IconHeight="50"
+							IconWidth="50"
+							converters:BackgroundThemeConverter.AnilibriaIcon="defaultheme"
+						/>
+						<controls:DarkAnilibriaIcon
+							IconHeight="50"
+							IconWidth="50"
+							converters:BackgroundThemeConverter.AnilibriaIcon="darkheme"
+						/>
+
+						<StackPanel
+							Orientation="Vertical"
+							VerticalAlignment="Center"
+							Grid.Column="1"
+							Margin="8 0 0 0">
+							<TextBlock Foreground="White">Клиент для сайта AniLibria</TextBlock>
+							<TextBlock Foreground="White">
+								<Run>версия</Run>
+								<Run Text="{Binding Version}" />
+							</TextBlock>
+						</StackPanel>
+					</Grid>
+				</RelativePanel>
+			</SplitView.Pane>
+			<Grid>
+				<player:OnlinePlayerView
+					x:Name="Player"
+					Visibility="Collapsed"
+				/>
+				<releases:ReleasesView
+					x:Name="Releases"
+					Visibility="Collapsed"
+				/>
+				<authorize:AuthorizeView
+					x:Name="Authorize"
+					Visibility="Collapsed"
+				/>
+				<youtube:YoutubeView
+					x:Name="Youtube"
+					Visibility="Collapsed"
+				/>
+				<about:AboutView
+					x:Name="About"
+					Visibility="Collapsed"
+				/>
+				<donate:DonateView
+					x:Name="Donate"
+					Visibility="Collapsed"
+				/>
+				<downloadmanager:DownloadManagerView
+					x:Name="DownloadManager"
+					Visibility="Collapsed"
+				/>
+				<cinemahall:CinemaHallView
+					x:Name="CinemaHall"
+					Visibility="Collapsed"
+				/>
+				<maintenancepage:MaintenancePageView
+					x:Name="Maintenance"
+					Visibility="Collapsed"
+				/>
+			</Grid>
+		</SplitView>
+		<protocolpage:ChangeApiControl
+			x:Name="ChangeApi"
+			Visibility="Collapsed">
+		</protocolpage:ChangeApiControl>
+		<Border
+			x:Name="InformationMessage"
+			Margin="0 60 10 0"
+			converters:BackgroundThemeConverter.BorderMapper="ImageBorderColor"
+			converters:BackgroundThemeConverter.BackgroundMapper="ReleaseGridBackground"
+			BorderThickness="2"
+			CornerRadius="8"
+			Width="300"
+			MaxWidth="400"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Top"
+			Visibility="{Binding ShowedMessage}"
+			Padding="8">
+			<Grid
+				Background="Transparent">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<TextBlock
+					Grid.Row="0"
+					converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+					TextAlignment="Center"
+					FontSize="18"
+					FontWeight="Bold"
+					Text="{Binding DialogHeader}">
+				</TextBlock>
+				<TextBlock
+					Grid.Row="1"
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					MaxLines="3"
+					TextWrapping="WrapWholeWords"
+					TextTrimming="WordEllipsis"
+					Text="{Binding DialogMessage}">
+				</TextBlock>
+			</Grid>
+			<Border.RenderTransform>
+				<CompositeTransform></CompositeTransform>
+			</Border.RenderTransform>
+		</Border>
+	</Grid>
+</Page>

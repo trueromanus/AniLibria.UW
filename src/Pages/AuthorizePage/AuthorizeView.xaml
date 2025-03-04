@@ -1,0 +1,135 @@
+﻿<UserControl
+	x:Class="Anilibria.Pages.AuthorizePage.AuthorizeView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:viewmodel="using:Anilibria.Pages.AuthorizePage"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:converters="using:Anilibria.Converters"
+	mc:Ignorable="d"
+	d:DataContext="{d:DesignInstance viewmodel:AuthorizeViewModel}">
+
+	<Grid
+		Loaded="GridBackground_Loaded"
+		converters:BackgroundThemeConverter.BackgroundMapper="MainBackground">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<Grid
+			x:Name="GridBackground"
+			Opacity=".8"
+			Grid.RowSpan="2"
+			Grid.ColumnSpan="2"
+		/>
+
+		<Border
+			Grid.Row="0"
+			Grid.Column="0"
+			converters:BackgroundThemeConverter.BackgroundMapper="HumburgerBackground"
+			MinHeight="44"
+			Width="48">
+			<Button
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				Style="{StaticResource IconsButtonStyle}"
+				Command="{Binding ShowSidebarCommand}">
+				<Image
+					Width="{StaticResource IconSize}"
+					Height="{StaticResource IconSize}"
+					Source="/Assets/Icons/hambergermenu.svg"
+				/>
+			</Button>
+		</Border>
+		<Border
+			Grid.Row="1"
+			Grid.RowSpan="2"
+			Grid.Column="0"
+			converters:BackgroundThemeConverter.BackgroundMapper="PanelBackground"
+			Width="48">
+		</Border>
+
+		<StackPanel
+			Grid.Row="1"
+			Grid.Column="1"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Center">
+			<StackPanel
+				Padding="8"
+				converters:BackgroundThemeConverter.BackgroundMapper="ReleaseGridBackground"
+				Width="300"
+				CornerRadius="8">
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					Margin="4">
+					Email
+				</TextBlock>
+				<TextBox
+					converters:BackgroundThemeConverter.AnilibriaTextBox="Origin"
+					Margin="4"
+					IsSpellCheckEnabled="False"
+					Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				/>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					Margin="4">
+					Пароль
+				</TextBlock>
+				<PasswordBox
+					converters:BackgroundThemeConverter.AnilibriaPasswordBox="Origin"
+					Margin="4"
+					Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				/>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					Margin="4"
+					TextWrapping="Wrap">
+					2fa код (оставьте поле пустым, если Вы не настроили двухфакторную аутентификацию)
+				</TextBlock>
+				<TextBox
+					converters:BackgroundThemeConverter.AnilibriaTextBox="Origin"
+					Margin="4"
+					IsSpellCheckEnabled="False"
+					Text="{Binding TwoFACode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				/>
+				<Grid
+					Margin="4 0 4 0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Grid.Column="0"
+						Text="{Binding ErrorMessage}"
+						TextAlignment="Center"
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						VerticalAlignment="Center"
+					/>
+					<Button
+						Grid.Column="1"
+						Margin="4"
+						Command="{Binding SigninCommand}"
+						converters:BackgroundThemeConverter.ActionButton="Origin"
+						HorizontalAlignment="Right">
+						Войти
+					</Button>
+				</Grid>
+			</StackPanel>
+			<TextBlock
+				HorizontalAlignment="Right"
+				Foreground="#a32727"
+				converters:TextBlockHighlight.HyperLinkHightlight="True">
+				<Hyperlink
+					converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+					NavigateUri="https://www.anilibria.tv/pages/login.php">
+					Регистрация
+				</Hyperlink>
+			</TextBlock>
+		</StackPanel>
+	</Grid>
+</UserControl>

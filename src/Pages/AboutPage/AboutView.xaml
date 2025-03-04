@@ -1,0 +1,380 @@
+﻿<UserControl
+	x:Class="Anilibria.Pages.AboutPage.AboutView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:converters="using:Anilibria.Converters"
+	xmlns:controls="using:Anilibria.Controls"
+	mc:Ignorable="d"
+	d:DesignHeight="300"
+	d:DesignWidth="400">
+
+	<Grid
+		converters:BackgroundThemeConverter.BackgroundMapper="MainBackground">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<Border
+			Grid.Row="0"
+			Grid.Column="0"
+			converters:BackgroundThemeConverter.BackgroundMapper="HumburgerBackground"
+			MinHeight="44"
+			Width="48">
+			<Button
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					Style="{StaticResource IconsButtonStyle}"
+					Command="{Binding ShowSidebarCommand}">
+				<controls:HumburgerIcon
+					IconWidth="{StaticResource IconSize}"
+					IconHeight="{StaticResource IconSize}"
+					IconColor="White"
+				/>
+			</Button>
+		</Border>
+		<Border
+			Grid.Row="1"
+			Grid.RowSpan="2"
+			Grid.Column="0"
+			converters:BackgroundThemeConverter.BackgroundMapper="PanelBackground"
+			Width="48">
+		</Border>
+
+		<ScrollViewer
+			HorizontalAlignment="Stretch"
+			Grid.Row="0"
+			Grid.RowSpan="2"
+			Grid.Column="1">
+			<StackPanel>
+				<controls:DefaultAnilibriaIcon
+					Margin="0 10 0 10"
+					IconHeight="240"
+					IconWidth="240"
+					converters:BackgroundThemeConverter.AnilibriaIcon="defaultheme"
+				/>
+				<controls:DarkAnilibriaIcon
+					Margin="0 10 0 10"
+					IconHeight="240"
+					IconWidth="240"
+					converters:BackgroundThemeConverter.AnilibriaIcon="darkheme"
+				/>
+				<TextBlock
+					FontSize="30"
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					HorizontalAlignment="Center">
+					Клиент для сайта AniLibria.TV
+				</TextBlock>
+				<TextBlock
+					FontSize="26"
+					Foreground="#a32727"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Hyperlink
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						NavigateUri="https://www.anilibria.tv/">
+						https://www.anilibria.tv/
+					</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					Margin="0 10 0 0"
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="20"
+					HorizontalAlignment="Center">
+					<Run
+						Text="Версия"
+					/>
+					<Run
+						Text="{Binding Version}"
+					/>
+				</TextBlock>
+				<TextBlock
+					FontSize="24"
+					Margin="0 10 0 10"
+					HorizontalAlignment="Center"
+					converters:BackgroundThemeConverter.TextMapper="TextBlockAccent">
+					Спасибо что выбираете нас!
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					Margin="0 10 0 10"
+					HorizontalAlignment="Center"
+					TextWrapping="WrapWholeWords"
+					TextAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>В случае если у Вас есть проблемы с приложением Вы можете</Run>
+					<Hyperlink
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						NavigateUri="tg://resolve?domain=AniLibriaTP">
+						написать в техподдержку в telegram
+					</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					Margin="0 10 0 10"
+					HorizontalAlignment="Center"
+					TextWrapping="WrapWholeWords"
+					TextAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Весь материал в приложении представлен исключительно для домашнего ознакомительного просмотра.</Run>
+					<LineBreak />
+					<Run>
+						В случаях нарушения авторских прав - обращайтесь на почту
+					</Run>
+					<Hyperlink
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						NavigateUri="mailto:lupin@anilibria.tv">
+						lupin@anilibria.tv
+					</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="24"
+					Margin="0 10 0 10"
+					HorizontalAlignment="Center">
+					Благодарности:
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="22"
+					HorizontalAlignment="Center">
+					Lupin
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="22"
+					HorizontalAlignment="Center">
+					poiuty
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="22"
+					HorizontalAlignment="Center">
+					RadiationX
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="24"
+					Margin="0 10 0 10"
+					HorizontalAlignment="Center">
+					Дизайн:
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="22"
+					HorizontalAlignment="Center">
+					Sebastian Wilde
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="24"
+					Margin="0 20 0 10"
+					HorizontalAlignment="Center">
+					Используемые иконки:
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						NavigateUri="https://www.freepik.com/">
+						Freepik
+					</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						NavigateUri="https://www.flaticon.com/">
+						www.flaticon.com
+					</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink
+						converters:BackgroundThemeConverter.TextMapper="TextBlockAccent"
+						NavigateUri="http://creativecommons.org/licenses/by/3.0/">
+						CC 3.0 BY
+					</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/cole-bemis">Cole Bemis</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/smashicons">Smashicons</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/srip">srip</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/gregor-cresnar">Gregor Cresnar</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/google">Google</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/egor-rumyantsev">Egor Rumyantsev</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/those-icons">Those Icons</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/yannick">Yannick</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/pixel-perfect">Pixel perfect</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/gregor-cresnar">Gregor Cresnar</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>Icons made by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/authors/eleonor-wang">Eleonor Wang</Hyperlink>
+					<Run>from</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://www.flaticon.com/">www.flaticon.com</Hyperlink>
+					<Run>is licensed by</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="24"
+					Margin="0 20 0 10"
+					HorizontalAlignment="Center">
+					3rd библиотеки:
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>
+						LiteDB
+					</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://github.com/mbdavid/LiteDB/blob/master/LICENSE">license</Hyperlink>
+					</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>
+						Html Agility Pack
+					</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE">license</Hyperlink>
+				</TextBlock>
+				<TextBlock
+					converters:BackgroundThemeConverter.TextMapper="TextBlock"
+					FontSize="16"
+					HorizontalAlignment="Center"
+					Margin="0 0 0 10"
+					converters:TextBlockHighlight.HyperLinkHightlight="True">
+					<Run>
+						Newtonsoft.Json
+					</Run>
+					<Hyperlink converters:BackgroundThemeConverter.TextMapper="TextBlockAccent" NavigateUri="https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md">license</Hyperlink>
+				</TextBlock>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

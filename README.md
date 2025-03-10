@@ -7,3 +7,4 @@ AniLibria.UW port of original application [Anilibria](https://github.com/anilibr
 - Update all dependencies
 - Remake all ViewModels from `{Binding}` to `{x:Bind}`
 - Make support NativeAot compilation
+- Remake on nextAPI
